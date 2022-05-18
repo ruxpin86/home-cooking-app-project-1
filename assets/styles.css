@@ -1,0 +1,43 @@
+body {
+    font-family: Helvetica, Arial, sans serif;
+    color: #7c5b63;
+}
+
+header {
+    color: #DA7B93;
+}
+
+.jumbotron {
+    background-color: #1C3334 !important;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+a {
+    color: #DA7B93;
+}
+
+img {
+    height: 350px;
+    padding: 15px;
+}
+
+#option {
+    background-color: #1C3334;
+    color: #376E6F;
+}
+
+.card {
+    border: none;
+}
+
+nav {
+    margin-top: -50px;
+}
