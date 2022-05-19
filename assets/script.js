@@ -8,14 +8,31 @@
 
 //define global variables
 var mealChoice = document.getElementById("option");
-var chefLevel;
-var proteinChoice;
-var vegChoice;
-var fruitChoice;
-var starchChoice;
+var proteinChoice; //need id
+var vegChoice; //need id
+var fruitChoice; //need id
+var starchChoice; //need id
 var searchBtn = document.getElementById("get-recipe-btn");
 
-function getTastyResults(event) {
+function getTastyRecipesList() {
+  var options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Host": "tasty.p.rapidapi.com",
+      "X-RapidAPI-Key": "af7df4ee99mshd80fd154da3281bp1aeac7jsn5872eaa62dac",
+    },
+  };
+
+  fetch(
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes&q=poultry+onion",
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+}
+
+function getTastyAutoResults(event) {
   event.preventDefault();
   const options = {
     method: "GET",
@@ -25,16 +42,11 @@ function getTastyResults(event) {
     },
   };
 
-  fetch(
-    "https://tasty.p.rapidapi.com/recipes/auto-complete?prefix=chicken%20soup",
-    options
-  )
+  fetch("https://tasty.p.rapidapi.com/recipes/auto-complete?prefix=", options)
     .then((response) => response.json())
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
 }
-
-//addEventListener to invoke getTastyResults func
 
 function amountConv() {
   const options = {
@@ -54,4 +66,4 @@ function amountConv() {
     .catch((err) => console.error(err));
 }
 
-searchBtn.addEventListener("click", getTastyResults);
+searchBtn.addEventListener("click", getTastyRecipesList);
