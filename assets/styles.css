@@ -1,0 +1,76 @@
+:root {
+    --darkPink: #945f6d;
+    --pink: #f093aa;
+    --darkBlue: #295b5f;
+    --blue: #438586;
+    --light: #ffffff;
+}
+
+body {
+    font-family: Helvetica, Arial, sans serif;
+    color: var(--darkPink);
+}
+
+header {
+    color: var(--pink);
+}
+
+.jumbotron {
+    background-color: var(--darkBlue) !important;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+a {
+    color: var(--pink);
+}
+
+img {
+    height: 350px;
+    padding: 15px;
+}
+
+#option {
+    background-color: var(--darkBlue);
+    color: var(--blue);
+}
+
+.card {
+    border: none;
+}
+
+nav {
+    margin-top: -50px;
+}
+
+button {
+    background-color: var(--darkPink) !important;
+    color: var(--light) !important;
+    border-style: none !important;
+}
+
+.choiceBtn {
+    margin-left: 40%;
+    margin-bottom: 5%;
+}
+
+.lastBtn {
+    margin-left: 45%;
+}
+
+button:hover {
+    background-color: var(--blue) !important;
+    color: var(--light);
+}
+
+button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
