@@ -1,18 +1,19 @@
-// get user choice on meal of the day: then kick off to
-// get user input on level of expertise: then kick off to
-// get single user choice on protein
-// get multiple user choice on veg on hand
-// get multiple user choice on fruits
-// get multiple user choice on starch
-// addEventListener on "click" of "FindYourRecipe" to call API functions
+//on click get button value
+//button value then is stored in userChoice
+//userChoice
 
 //define global variables
-var mealChoice = document.getElementById("option");
-var proteinChoice; //need id
-var vegChoice; //need id
-var fruitChoice; //need id
-var starchChoice; //need id
+var mealChoice = document.getElementsByClassName("choiceMeal");
+console.log(mealChoice);
+var proteinChoice = document.getElementsByClassName("choiceProtein");
+var vegChoice = document.getElementsByClassName("choiceVeg");
+var fruitChoice = document.getElementsByClassName("choiceFruit");
+var starchChoice = document.getElementsByClassName("choiceStarch");
+var userSelections = "";
+var mealType;
 var searchBtn = document.getElementById("get-recipe-btn");
+
+function userChoice() {}
 
 function getTastyRecipesList() {
   var options = {
@@ -24,7 +25,8 @@ function getTastyRecipesList() {
   };
 
   fetch(
-    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes&q=poultry+onion",
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=&q=" +
+      userSelections.value,
     options
   )
     .then((response) => response.json())
@@ -65,5 +67,19 @@ function amountConv() {
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
 }
+
+function choiceClick(event) {
+  for (i = 0; i < mealChoice.length; i++) {
+    mealChoice = event.target.textContent;
+    console.log(event.target.textContent);
+    console.log(typeof mealChoice);
+  }
+}
+
+mealChoice[0].addEventListener("click", choiceClick);
+proteinChoice.addEventListener("click");
+vegChoice.addEventListener("click");
+fruitChoice.addEventListener("click");
+starchChoice.addEventListener("click");
 
 searchBtn.addEventListener("click", getTastyRecipesList);
