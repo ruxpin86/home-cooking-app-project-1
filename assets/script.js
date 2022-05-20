@@ -9,11 +9,28 @@ var proteinChoice = document.getElementsByClassName("choiceProtein");
 var vegChoice = document.getElementsByClassName("choiceVeg");
 var fruitChoice = document.getElementsByClassName("choiceFruit");
 var starchChoice = document.getElementsByClassName("choiceStarch");
-var userSelections = "";
-var mealType;
+var userSelections = {};
 var searchBtn = document.getElementById("get-recipe-btn");
 
-function userChoice() {}
+var userChoice = [
+  {
+    mealType: ["breakfast", "lunch", "dinner"],
+  },
+  {
+    protein: ["beef", "poultry", "fish", "pork"],
+  },
+  {
+    vegetable: ["tomatoes", "onions", "lettuce", "carrots"],
+  },
+  {
+    fruit: ["berries", "apples", "bananas", "citrus"],
+  },
+  {
+    starch: ["grains", "pasta", "potatoes", "bread"],
+  },
+];
+
+// function userChoice() {}
 
 function getTastyRecipesList() {
   var options = {
