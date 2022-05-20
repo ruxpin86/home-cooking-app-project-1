@@ -8,8 +8,10 @@ var proteinChoice = document.getElementsByClassName("choiceProtein");
 var vegChoice = document.getElementsByClassName("choiceVeg");
 var fruitChoice = document.getElementsByClassName("choiceFruit");
 var starchChoice = document.getElementsByClassName("choiceStarch");
+var searchBtn = document.getElementById("get-recipe-btn");
+var userChoice = {};
 
-var userChoice = [
+userChoice = [
   {
     mealType: ["breakfast", "lunch", "dinner"],
   },
@@ -27,30 +29,31 @@ var userChoice = [
   },
 ];
 
-function concatToSearch(event) {
-  //get value from button click, then add onto search string
-  userChoice = event.target.mealType[0];
-  console.log(userChoice);
+console.log(userChoice);
+
+//grab the user choice value from the class of choiceMeal
+function getUserChoice() {
+  mealChoice.textContent = " ";
 }
 
-// function myFunction() {
-//   document.getElementByClass("dropdown-menu").classList.toggle("show");
-// }
-// // Close the dropdown if the user clicks outside of it
-// window.onclick = function (e) {
-//   if (!e.target.matches(".dropbtn")) {
-//     var myDropdown = document.getElementByClass("dropdown-menu");
-//     if (myDropdown.classList.contains("show")) {
-//       myDropdown.classList.remove("show");
-//     }
-//   }
-// };
+mealChoice.addEventListener("click", function () {
+  //get the value of the mealType to then be put into API call
+});
 
-userChoice.addEventListener("click", concatToSearch());
-userChoice.protein.value.addEventListener("click", concatToSearch());
-userChoice.vegetable.value.addEventListener("click", concatToSearch());
-userChoice.fruit.value.addEventListener("click", concatToSearch());
-userChoice.starch.value.addEventListener("click", concatToSearch());
+getUserChoice();
+console.log(getUserChoice);
+
+// function concatToSearch(event) {
+//   //get value from button click, then add onto search string
+//   userChoice = event.target.mealType[0];
+//   console.log(userChoice);
+// }
+
+// userChoice.mealType.value.addEventListener("click", concatToSearch());
+// userChoice.protein.value.addEventListener("click", concatToSearch());
+// userChoice.vegetable.value.addEventListener("click", concatToSearch());
+// userChoice.fruit.value.addEventListener("click", concatToSearch());
+// userChoice.starch.value.addEventListener("click", concatToSearch());
 
 function getTastyRecipesList() {
   var options = {
@@ -103,19 +106,6 @@ function amountConv() {
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
 }
-
-function choiceClick(event) {
-  mealChoice = event.target.name;
-  console.log(mealChoice);
-}
-
-// mealChoice[0].addEventListener("click", choiceClick);
-// mealChoice[1].addEventListener("click", choiceClick);
-// mealChoice[2].addEventListener("click", choiceClick);
-// proteinChoice.addEventListener("click");
-// vegChoice.addEventListener("click");
-// fruitChoice.addEventListener("click");
-// starchChoice.addEventListener("click");
 
 searchBtn.addEventListener("click", getTastyRecipesList);
 
