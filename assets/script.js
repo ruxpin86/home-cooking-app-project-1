@@ -25,8 +25,7 @@ function getTastyRecipesList() {
   };
 
   fetch(
-    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=&q=" +
-      userSelections.value,
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=&q=",
     options
   )
     .then((response) => response.json())
@@ -69,17 +68,19 @@ function amountConv() {
 }
 
 function choiceClick(event) {
-  for (i = 0; i < mealChoice.length; i++) {
-    mealChoice = event.target.textContent;
-    console.log(event.target.textContent);
-    console.log(typeof mealChoice);
-  }
+  mealChoice = event.target.name;
+  console.log(mealChoice);
+  // console.log(typeof mealChoice);
 }
 
 mealChoice[0].addEventListener("click", choiceClick);
-proteinChoice.addEventListener("click");
-vegChoice.addEventListener("click");
-fruitChoice.addEventListener("click");
-starchChoice.addEventListener("click");
+mealChoice[1].addEventListener("click", choiceClick);
+mealChoice[2].addEventListener("click", choiceClick);
+// proteinChoice.addEventListener("click");
+// vegChoice.addEventListener("click");
+// fruitChoice.addEventListener("click");
+// starchChoice.addEventListener("click");
 
 searchBtn.addEventListener("click", getTastyRecipesList);
+
+//for ingredient types use foreach to loop through
