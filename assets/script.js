@@ -1,6 +1,8 @@
 //on click get button value
-//button value then is stored in userChoice
-//userChoice
+//store the value in a variable
+//use a function to convert the value into a string
+//concatenate that string into the getTastyRecipesList function inside the fetch call
+//once search is executed, grab results and create elements dynamically underneath the search button
 
 //define global variables
 var mealChoice = document.getElementsByClassName("choiceMeal");
@@ -12,64 +14,80 @@ var searchBtn = document.getElementById("get-recipe-btn");
 var userChoice = {};
 
 userChoice = [
-  {
-    mealType: ["breakfast", "lunch", "dinner"],
-  },
-  {
-    protein: ["beef", "poultry", "fish", "pork"],
-  },
-  {
-    vegetable: ["tomatoes", "onions", "lettuce", "carrots"],
-  },
-  {
-    fruit: ["berries", "apples", "bananas", "citrus"],
-  },
-  {
-    starch: ["grains", "pasta", "potatoes", "bread"],
-  },
+  // "breakfast",
+  // "lunch",
+  // "dinner",
+
+  // "beef",
+  // "poultry",
+  // "fish",
+  "pork",
+
+  // "tomatoes",
+  // "onions",
+  // "lettuce",
+  // "carrots",
+
+  // "berries",
+  // "apples",
+  // "bananas",
+  // "citrus",
+
+  // "grains",
+  // "pasta",
+  // "potatoes",
+  "bread",
 ];
 
 console.log(userChoice);
 
 //grab the user choice value from the class of choiceMeal
-function getUserChoice() {
-  mealChoice.textContent = " ";
-}
+// function getUserChoice() {
+//   mealChoice.textContent = " ";
+// }
 
-mealChoice.addEventListener("click", function () {
-  //get the value of the mealType to then be put into API call
-});
+// mealChoice.addEventListener("click", function () {
+//get the value of the mealType to then be put into API call
 
-getUserChoice();
-console.log(getUserChoice);
+// getUserChoice();
+// console.log(getUserChoice);
 
 // function concatToSearch(event) {
 //   //get value from button click, then add onto search string
-//   userChoice = event.target.mealType[0];
-//   console.log(userChoice);
-// }
 
-// userChoice.mealType.value.addEventListener("click", concatToSearch());
-// userChoice.protein.value.addEventListener("click", concatToSearch());
-// userChoice.vegetable.value.addEventListener("click", concatToSearch());
-// userChoice.fruit.value.addEventListener("click", concatToSearch());
-// userChoice.starch.value.addEventListener("click", concatToSearch());
+// dynamically creates a list of results for su
+function setResultsList(res) {
+  console.log(res);
+  var resultEl = document.getElementById("search-results");
+  resultEl.innerHTML = " ";
+  res.hits.forEach((x) => {
+    resultEl.innerHTML += `
+<div class="card">
+<h3>${x.recipe.label}</h3>
+<img src="${x.recipe.image}" />
+<a href="${x.recipe.url}">View Recipe</a>
+</div>
+`;
+  });
+}
 
-function getTastyRecipesList() {
-  var options = {
+function getEdamamRecipesList() {
+  console.log("get recipe");
+  const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Host": "tasty.p.rapidapi.com",
+      "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
       "X-RapidAPI-Key": "af7df4ee99mshd80fd154da3281bp1aeac7jsn5872eaa62dac",
     },
   };
 
   fetch(
-    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=&q=",
+    "https://edamam-recipe-search.p.rapidapi.com/search?q=" +
+      userChoice.join("%2C%20"),
     options
   )
     .then((response) => response.json())
-    .then((response) => console.log(response))
+    .then((response) => setResultsList(response))
     .catch((err) => console.error(err));
 }
 
@@ -107,6 +125,21 @@ function amountConv() {
     .catch((err) => console.error(err));
 }
 
-searchBtn.addEventListener("click", getTastyRecipesList);
+function toggleChoice(event) {
+  var name = event.target.name;
+  if (userChoice.includes(name)) {
+    userChoice = userChoice.filter((x) => x != name);
+  } else {
+    userChoice.push(name);
+  }
+}
+
+var choiceBtns = document.querySelectorAll(".choiceBtn");
+choiceBtns.forEach((btn) => {
+  btn.addEventListener("click", toggleChoice);
+});
+
+//trigger function to get recipes
+searchBtn.addEventListener("click", getEdamamRecipesList);
 
 //for ingredient types use foreach to loop through
