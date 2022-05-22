@@ -74,3 +74,15 @@ button:active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+/* #search-results { */
+/* display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: auto; */
+/* } */
+
+/* #search-results img {
+    justify-content: center;
+    width: 500px;
+    flex-wrap: wrap;
+} */
