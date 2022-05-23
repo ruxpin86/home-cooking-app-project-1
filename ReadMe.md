@@ -3,7 +3,7 @@
 Users will be able to specify what meal they are cooking and their skill level, and then select ingredients that they would like to use in a recipe.
 <hr>
 
-<h2><a href="#">Deployed Application</a></h2>
+<h2><a href="https://ruxpin86.github.io/home-cooking-app-project-1/">Deployed Application</a></h2>
 <hr>
 
 <h3>Libraries Used</h3>
