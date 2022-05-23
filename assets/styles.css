@@ -16,7 +16,7 @@ header {
 }
 
 .jumbotron {
-    background-color: var(--darkBlue) !important;
+    background-image: linear-gradient(var(--darkBlue), var(--blue)) !important;
 }
 
 h2 {
@@ -67,12 +67,12 @@ button {
 
 button:hover {
     background-color: var(--blue) !important;
-    color: var(--light);
 }
 
 button:active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+    background-color: var(--blue) !important;
 }
 
 /* #search-results { */
