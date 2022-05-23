@@ -39,16 +39,40 @@ console.log(userChoice);
 
 // dynamically creates a list of results for search results
 function setResultsList(res) {
-  console.log(res);
+  // console.log(res);
+  console.log(res[0].recipe.ninja.items);
   var resultEl = document.getElementById("search-results");
   resultEl.innerHTML = " ";
-  res.hits.forEach((x) => {
+  res.forEach((x) => {
     resultEl.innerHTML += `
 <div class="card col-sm-12 col-md-6 col-lg-4">
 <h3>${x.recipe.label}</h3>
 <img class="card-img-top" alt="${x.recipe.label}" src="${x.recipe.image}"/>
 <div class="card-body">
 <a class="btn btn-outline-info choiceBtn" href="${x.recipe.url}">View Recipe</a>
+${
+  // JSON.stringify(x.recipe.ninja.items)
+  // x.recipe.ninja.items.forEach((y) => JSON.stringify(y))
+  // JSON.stringify(x.recipe.ninja.items[0].name)
+  x.recipe.ninja.items
+    .map(
+      (y) => `
+  <p>${y.name}</p>
+  <ul>
+  ${Object.entries(y)
+    .map(
+      (z) => `<li>${z[0]}:${z[1]}</li>` //maneuvering through an object
+    )
+    .join("")}
+  </ul>
+  
+  `
+    )
+    .join("")
+  // for(let i = 0; i<x.recipe.ninja.items.length; i++){
+
+  // }
+}
 </div>
 </div>
 `;
@@ -56,7 +80,7 @@ function setResultsList(res) {
 }
 
 // get calorie information based on the name of the recipe
-function getCalorieNinja(query) {
+async function getCalorieNinja(query) {
   //query corresponds to the 'label' argument passed on line 102
   const options = {
     method: "GET",
@@ -66,19 +90,19 @@ function getCalorieNinja(query) {
     },
   };
   // pasta%20alla%20gricia
-  fetch(
+  let data = "fetching data";
+  await fetch(
     `https://calorieninjas.p.rapidapi.com/v1/nutrition?query=${query}`,
     options
   )
     .then((response) => response.json())
-    .then((response) => console.log(response))
+    .then((response) => (data = response))
     // try to call nutrition data as a variable to be assigned
     .catch((err) => console.error(err));
+  return data;
 }
 
-// items[0].sodium_mg;
-
-function getEdamamRecipesList() {
+async function getEdamamRecipesList() {
   console.log("get recipe");
   const options = {
     method: "GET",
@@ -88,25 +112,31 @@ function getEdamamRecipesList() {
     },
   };
 
+  async function handleCalorieNinja(label) {
+    let result = await getCalorieNinja(label);
+    return result;
+  }
+
   fetch(
     "https://edamam-recipe-search.p.rapidapi.com/search?q=" +
       userChoice.join("%2C%20"),
     options
   )
     .then((response) => response.json())
-    .then((response) => {
+    .then(async (response) => {
       var recipes = response.hits;
-      recipes = recipes.map((item) => {
-        // var recipeLabel = [...item];
-        // console.log();
-        var tempItem = item;
-        var label = tempItem.recipe.label;
-        var inputLabel = getCalorieNinja(label);
-        console.log(inputLabel);
-        return tempItem;
-      });
+      recipes = await Promise.all(
+        recipes.map(async (item) => {
+          // var recipeLabel = [...item];
+          // console.log();
+          var tempItem = item;
+          var label = tempItem.recipe.label;
+          tempItem.recipe.ninja = await getCalorieNinja(label);
+          return tempItem;
+        })
+      );
       // console.log(recipes);
-      setResultsList(response);
+      setResultsList(recipes);
     })
     .catch((err) => console.error(err));
 }
